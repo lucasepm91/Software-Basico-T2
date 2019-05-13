@@ -1,0 +1,148 @@
+Lucas Eduardo Pereira Martins
+Carlos Alves Loriano Junior 
+
+
+A partir do segundo teste só será mostrada a função,
+pois a main será modificada para cada teste.
+ 
+Testes:
+
+1) b constante
+ 
+typedef int (*func_ptr) (int, int);
+
+int teste (int a,int b,int c)
+{		
+	a += b;
+	c += a;
+	return c;
+}
+
+int main (void)
+{
+	Parametro params[3];
+	func_ptr f_teste = NULL;	
+	int resultado;
+
+	params[0].tipo = INT_PAR;
+	params[0].amarrado = 0;
+	
+	params[1].tipo = INT_PAR;
+	params[1].amarrado = 1;
+	params[1].valor.v_int = 5;
+	
+	params[2].tipo = INT_PAR;
+	params[2].amarrado = 0;
+	
+
+
+	f_teste = (func_ptr) gera_func (teste, 3, params);
+
+
+	resultado = f_teste(3,1);
+	printf("\n%d\n", resultado);
+
+	return 0;
+}
+
+Resultado esperado: 9 ; resultado encontrado : 9 ; OK
+
+
+2) Nenhum amarrado
+
+int teste (int a,int b,int c)
+{		
+	a += b;
+	c += a;
+	return c;
+}
+resultado = f_teste(3,1,2);
+
+Resultado esperado: 6 ; resultado encontrado : 6 ; OK
+
+
+3) Todos amarrados; a = 7,b = 5,c = 3.
+
+int teste (int a,int b,int c)
+{		
+	a += b;
+	c += a;
+	return c;
+}
+
+Resultado esperado: 15 ; resultado encontrado : 15 ; OK
+
+
+4) d amarrado; d = 2.
+
+double teste (double a, double b, int c, char d)
+{
+	return (a*b) + (c*d);
+}
+resultado = f_teste(3.0,2.0,5);
+
+Resultado esperado: 16 ; resultado encontrado : 16 ; OK
+
+
+5) Agora sem o char d amarrado.
+
+double teste (double a, double b, int c, char d)
+{
+	return (a*b) + (c*d);
+}
+resultado = f_teste(3.0,2.0,5,2);
+
+Resultado esperado: 16 ; resultado encontrado : 16 ; OK
+
+6) b ponteiro amarrado
+
+int* teste (int a, int *b,int c,int d)
+{	
+	c += d;
+	b = &a;
+	return b;
+}
+int a = 2,*resultado;
+resultado = f_teste(a,1,3);
+printf("\nres:%d , a:%d\n", *resultado,a);
+
+Resultado esperado: res = 2, a = 2 ; resultado encontrado : res = 2, a = 2 ; OK
+
+
+7) Agora sem o ponteiro b amarrado
+
+int* teste (int a, int *b,int c,int d)
+{	
+	c += d;
+	b = &a;
+	return b;
+}
+int a = 2,*resultado;
+resultado = f_teste(a,0x00014725,1,3);
+printf("\nres:%d , a:%d\n", *resultado,a);
+
+Resultado esperado: res = 2, a = 2 ; resultado encontrado : res = 2, a = 2 ; OK
+
+
+8)Sem nenhum double amarrado
+
+double teste (double c,double d)
+{		
+	return c+d;
+}
+d = f_quadrado(3.0,7.0);
+
+Resultado esperado: 10 ; resultado encontrado : 10 ; OK
+
+
+9) testes dos quadrados de 1 a 10(exemplo do site)
+
+Resultado esperado: 1,4,9,16,25,36,49,64,81,100 ; resultado encontrado : 1,4,9,16,25,36,49,64,81,100 ; OK
+
+
+OBS: Com esses testes podemos concluir que gera_func foi feita corretamente.
+
+
+
+
+
